@@ -17,6 +17,7 @@ import json
 from pyang import plugin
 from pyang import statements
 from pyang import util
+from xml2json import json2xml
 
 __author__ = 'camoberg@tail-f.com,sunseawq@huawei.com'
 __copyright__ = "Copyright (c) 2015, Carl Moberg, Qin Wu"
