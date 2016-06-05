@@ -66,11 +66,17 @@ class ModuleCatalogPlugin(plugin.PyangPlugin):
 		me = ModuleCatalogEmitter()
 		result = me.emit(ctx, modules)
 		# print(result)
+		if fd:
+			fqfd = os.getcwd() + '/' + fd.name
+                        if os.path.isfile(fqfd):
+                		print("File '%s' exists" % fqfd)
+                		return
 		fd.write("%s" % result)
 		if ctx.opts.outputFormat == 'json':
 			self.print_json(result)
 		else:
-			print_xml(result)
+			self.print_xml(result)
+		fd.close()
 
 class ModuleCatalogEmitter(object):
 	def emit(self, ctx, modules):
