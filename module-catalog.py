@@ -1,5 +1,6 @@
+#!/usr/bin/env python
 """YANG module catalog data generator
-"""
+
 from __future__ import print_function
 
 import optparse
@@ -16,6 +17,12 @@ import json
 from pyang import plugin
 from pyang import statements
 from pyang import util
+
+__author__ = 'camoberg@tail-f.com,sunseawq@huawei.com'
+__copyright__ = "Copyright (c) 2015, Carl Moberg, Qin Wu"
+__license__ = "New-style BSD"
+__email__ = "camoberg@cisco.com,sunseawq@huawei.com"
+__version__ = "0.2.1"
 
 def pyang_plugin_init():
     plugin.register_plugin(ModuleCatalogPlugin())
@@ -48,7 +55,11 @@ class ModuleCatalogPlugin(plugin.PyangPlugin):
         print(json.dumps(data))
 
     def print_xml(self, data):
-        pass
+        jsonstring = json.dumps(data)
+        decodedstring=json.loads(jsonstring)
+        #print(decodedstring)
+        jsondata = {data['name']:decodedstring}
+        print(json2xml(jsondata))
 
     def emit(self, ctx, modules, fd):
 		me = ModuleCatalogEmitter()
