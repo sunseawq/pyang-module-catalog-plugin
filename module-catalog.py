@@ -84,11 +84,11 @@ class ModuleCatalogEmitter(object):
 		# +--rw module-version?     string -> Can't be inferred from module
 
 			res['name'] = module.arg
-			for statement in ['namespace', 'prefix', 'revision', 'module-version']:
+			for statement in ['namespace','description', 'prefix', 'revision', 'module-version']:
 				stmt = module.search_one(statement)
 				if stmt:
-					if statement == 'module':
-						res['name'] = stmt.arg
+					if statement == 'description':
+						res['summary'] = stmt.arg
 					else:
 						res[stmt.keyword] = stmt.arg
 			return res
