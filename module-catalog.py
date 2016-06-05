@@ -66,6 +66,7 @@ class ModuleCatalogPlugin(plugin.PyangPlugin):
 		me = ModuleCatalogEmitter()
 		result = me.emit(ctx, modules)
 		# print(result)
+		fd.write("%s" % result)
 		if ctx.opts.outputFormat == 'json':
 			self.print_json(result)
 		else:
