@@ -60,7 +60,7 @@ class ModuleCatalogPlugin(plugin.PyangPlugin):
         decodedstring=json.loads(jsonstring)
         #print(decodedstring)
         jsondata = {data['name']:decodedstring}
-        print(json2xml(jsondata))
+        #print(json2xml(jsondata))
 
     def emit(self, ctx, modules, fd):
 		me = ModuleCatalogEmitter()
@@ -75,7 +75,22 @@ class ModuleCatalogPlugin(plugin.PyangPlugin):
 		if ctx.opts.outputFormat == 'json':
 			self.print_json(result)
 		else:
-			self.print_xml(result)
+                        # self.print_xml(result)
+                        jsonstring = json.dumps(result)
+                        decodedstring=json.loads(jsonstring)
+                        jsondata = {result['name']:decodedstring}
+                        print(json2xml(jsondata))
+                if fd:
+###         print json
+                        fd.write("%s" % json.dumps(result))
+                        fd.write("\r\n")
+
+###         print xml
+                        jsonstring = json.dumps(result)
+                        decodedstring=json.loads(jsonstring)
+                        jsondata = {result['name']:decodedstring}
+                        print(json2xml(jsondata))
+                        fd.write("%s" % json2xml(jsondata))
 		fd.close()
 
 class ModuleCatalogEmitter(object):
